@@ -4,30 +4,29 @@
       <div class="row">
         <div class="col-lg-12">
           <h2 class="text-center text-white my-4">ISI BUKU PENGUNJUNG</h2>
-            
+
           <div class="col-6">
             <form @submit.prevent="KirimData">
               <div class="mb-3">
-                <input v-model="form.nama" type="text" class="form-control form-control-lg rounded-5" placeholder="NAMA...">
+                <input v-model="form.nama" type="text" class="form-control form-control-lg rounded-5"
+                  placeholder="NAMA...">
               </div>
               <div class="mb-3">
                 <select v-model="form.keanggotaan" class="form-control form-control-lg from-select rounded-5">
                   <option value="">KEANGGOTAAN</option>
-                  <option v-for="(member,i) in members" :key="i" :value="member.id">{{ member.nama }}</option>
-                  
+                  <option v-for="(member, i) in members" :key="i" :value="member.id">{{ member.nama }}</option>
                 </select>
               </div>
-              <div class="mb-3">
-                <div class="row">
-                  <div class="col-md-4">
-                    <select v-model="form.tingkat" class="form-control form-control-lg form-select rounded-5 mb-2">
-                      <option value="">TINGKATAN</option>
-                      <option value="X">X</option>
-                      <option value="XI">XI</option>
-                      <option value="XII">XII</option>
-                    </select>
-                  </div>
-                  <div class="col-md-4">
+              <div v-if="form.keanggotaan == '1'" class="row mb-3">
+                <div class="col-md-4">
+                  <select v-model="form.tingkat" class="form-control form-control-lg form-select rounded-5 mb-2">
+                    <option value="">TINGKATAN</option>
+                    <option value="X">X</option>
+                    <option value="XI">XI</option>
+                    <option value="XII">XII</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
                   <select v-model="form.jurusan" class="form-control form-control-lg from-select rounded-5 mb-2">
                     <option value="">JURUSAN</option>
                     <option value="PPLG">PPLG</option>
@@ -46,15 +45,14 @@
                     <option value="4">4</option>
                   </select>
                 </div>
-                  <div class="col-md-4">
-                  </div>
+                <div class="col-md-4">
                 </div>
               </div>
               <div class="mb-3">
-                <select v-model="form.keperluan"class="form-control form-control-lg from-select rounded-5">
-              <option value="">KEPERLUAN</option>
-              <option v-for="(item,i) in objectives" :key="i" :value="item.id">{{ item.nama }}</option>
-            </select>
+                <select v-model="form.keperluan" class="form-control form-control-lg from-select rounded-5">
+                  <option value="">KEPERLUAN</option>
+                  <option v-for="(item, i) in objectives" :key="i" :value="item.id">{{ item.nama }}</option>
+                </select>
               </div>
               <!-- <NuxtLink to="pengunjung/riwayat">
                 <button type="submit" class="btn btn-dark btn-lg rounded-5 px-5">KIRIM</button>
@@ -76,38 +74,37 @@ const objectives = ref([])
 
 const form = ref({
   nama: "",
-  keanggotaan:"",
-  tingkat:"",
-  kelas:"",
-  jurusan:"",
-  keperluan:"",
+  keanggotaan: "",
+  tingkat: "",
+  kelas: "",
+  jurusan: "",
+  keperluan: "",
 })
 
-const KirimData = async () =>{
+const KirimData = async () => {
   const { error } = await supabase.from('pengunjung').insert([form.value])
-  if(error) throw error
+  if (error) throw error
   else navigateTo('../pengunjung/riwayat')
 }
 
-const getKeanggotaan = async () =>{
-  const { data,error } = await supabase.from('keanggotaan').select('*')
-  if(data) members.value = data
+const getKeanggotaan = async () => {
+  const { data, error } = await supabase.from('keanggotaan').select('*')
+  if (data) members.value = data
 }
 
-const getKeperluan = async () =>{
-  const { data,error } = await supabase.from('keperluan').select('*')
-  if(data) objectives.value = data
+const getKeperluan = async () => {
+  const { data, error } = await supabase.from('keperluan').select('*')
+  if (data) objectives.value = data
 }
 
-onMounted(() =>{
+onMounted(() => {
   getKeanggotaan()
   getKeperluan()
 })
 </script>
 
 <style scoped>
-
-.wrapper{  
+.wrapper {
   background-image: url('@/assets/img/4.jpg');
   background-size: cover;
   height: 100vh;

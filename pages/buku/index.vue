@@ -19,7 +19,7 @@
             </div>
           </div>
         </div>
-        <nuxt-link to="/" class="btn btn-back btn-lg rounded-5 px-5">Kembali</nuxt-link>
+        <nuxt-link to="/pengunjung/riwayat" class="btn btn-back btn-lg rounded-5 px-5">Kembali</nuxt-link>
       </div>
     </div>
   </div>
