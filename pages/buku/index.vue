@@ -4,9 +4,14 @@
     <div class="row">
       <div class="col-lg-12">
         <h2 class="text-center my-4">BUKU</h2>
-        <div class="my-3">
+        <!-- <div class="my-3">
           <input type="search" class="form-container rounded-5"  width="150px"     placeholder="Search">
-        </div>
+        </div> -->
+        <form @submit.prevent="getBooks" class="col mb-3">
+              <div class="my-3">
+                <input v-model="keyword" type="search" class="form-control from-control rounded-5" placeholder="Cari Judul..." aria-label="Search" @input="getbooks" />
+              </div>
+        </form>
         <div class="my-3 text-muted">menampilkan 3 dari 3</div>
         <div class="row">
           <div class="col-lg-2" v-for="(buku, i) in books " :key="i">
